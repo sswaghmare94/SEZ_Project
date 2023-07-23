@@ -330,15 +330,19 @@ def plot_gantt_chart(activities, schedule):
         end_time = end_times[i]
         duration = activity.duration
 
+        rounded_duration = round(duration)
+
         # Plot the bar for the activity
-        ax.barh(i, duration, left=start_time, height=0.5, align='center')
+        ax.barh(i, rounded_duration, left=start_time,
+                height=0.5, align='center')
 
         # Add the duration text to the right side of the bar
-        ax.text(end_time, i, f"{duration} days", ha='left', va='center')
+        ax.text(end_time, i,
+                f"{rounded_duration} days", ha='left', va='center')
 
     # Set the x-axis limits and labels
     max_time = max(end_times)
-    ax.set_xlim(0, max_time)
+    ax.set_xlim(0, round(max_time, 2))
     ax.set_xlabel('Time (days)')
 
     # Set the title
@@ -347,6 +351,7 @@ def plot_gantt_chart(activities, schedule):
     # Display the Gantt chart
     # plt.show()
     plt.savefig("aa.png")
+
 
 # Rest of the code...
 
@@ -403,4 +408,4 @@ def createChart(activities):
 
     # Plot the Gantt chart
     plot_gantt_chart(activities, best_schedule)
-    return round(maximum_end_time, 2)
+    return round(maximum_end_time, 0)
